@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <dataSource type="POOLED">
+      <property name="driver" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/db_stone?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;reloadable=true&amp;zeroDateTimeBehavior=convertToNull"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="admin"></property>
+      </dataSource>
+    </environment>
+  </environments>
+  
+  <mappers>
+    <mapper resource="com/stone/mapper/GoodsMapper.xml"/>
+    <mapper resource="com/stone/mapper/GoodsTypeMapper.xml"/>
+    <mapper resource="com/stone/mapper/GoodsDescriptionMapper.xml"/>
+    <mapper resource="com/stone/mapper/ManagerMapper.xml"/>
+    <mapper resource="com/stone/mapper/InformationMapper.xml"/>
+    <mapper resource="com/stone/mapper/InformationTypeMapper.xml"/>
+    <mapper resource="com/stone/mapper/SupplyBegMapper.xml"/>
+    <mapper resource="com/stone/mapper/UserMapper.xml"/>
+  </mappers>
+
+
+</configuration>

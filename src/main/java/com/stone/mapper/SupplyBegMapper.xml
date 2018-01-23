@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.dao.SupplyBegMapper">
+  <resultMap id="BaseResultMap" type="com.stone.bean.SupplyBeg">
+    <id column="phone" jdbcType="VARCHAR" property="phone" />
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <id column="supply_beg_id" jdbcType="INTEGER" property="supplyBegId" />
+    <id column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="audit_id" jdbcType="VARCHAR" property="auditId" />
+    <result column="access_count" jdbcType="INTEGER" property="accessCount" />
+    <result column="audit_state" jdbcType="VARCHAR" property="auditState" />
+    <result column="creat_date" jdbcType="TIMESTAMP" property="creatDate" />
+    <result column="goods_number" jdbcType="VARCHAR" property="goodsNumber" />
+    <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="goods_pic_url" jdbcType="VARCHAR" property="goodsPicUrl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.stone.bean.SupplyBeg">
+    <result column="production_target" jdbcType="LONGVARCHAR" property="productionTarget" />
+  </resultMap>
+  <resultMap id="BaseResultMapPlus" type="com.stone.bean.SupplyBeg">
+    <id column="phone" jdbcType="VARCHAR" property="phone" />
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <id column="supply_beg_id" jdbcType="INTEGER" property="supplyBegId" />
+    <id column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="audit_id" jdbcType="VARCHAR" property="auditId" />
+    <result column="access_count" jdbcType="INTEGER" property="accessCount" />
+    <result column="audit_state" jdbcType="VARCHAR" property="auditState" />
+    <result column="creat_date" jdbcType="TIMESTAMP" property="creatDate" />
+    <result column="goods_number" jdbcType="VARCHAR" property="goodsNumber" />
+    <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="goods_pic_url" jdbcType="VARCHAR" property="goodsPicUrl" />
+    <association property="user" javaType="com.stone.bean.User">
+	    <id column="phone" jdbcType="VARCHAR" property="phone" />
+	    <id column="user_name" jdbcType="VARCHAR" property="userName" />
+	    <result column="password" jdbcType="VARCHAR" property="password" />
+	    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+	    <result column="weChat" jdbcType="VARCHAR" property="wechat" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="address" jdbcType="VARCHAR" property="address" />
+	    <result column="creat_date" jdbcType="TIMESTAMP" property="creatDate" />
+	    <result column="land_line" jdbcType="VARCHAR" property="landLine" />
+	    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    </association>
+  </resultMap>
+  <resultMap extends="BaseResultMapPlus" id="ResultMapWithBLOBsPlus" type="java.util.HashMap">
+    <result column="production_target" jdbcType="LONGVARCHAR" property="productionTarget" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    phone, name, supply_beg_id, type_name, audit_id, access_count, audit_state, creat_date, 
+    goods_number, goods_price, address, goods_pic_url
+  </sql>
+  <sql id="Blob_Column_List">
+    production_target
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.stone.bean.SupplyBegExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from h_supply_beg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.stone.bean.SupplyBegExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from h_supply_beg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectAllByTypeId" parameterType="Integer" resultMap="BaseResultMap">
+    select * from h_supply_beg where supply_beg_id = #{typeId}
+  </select>
+  
+  <select id="selectAllByWithUser"  resultMap="ResultMapWithBLOBsPlus">
+    select s.name, s.supply_beg_id, s.type_name, s.audit_id, s.access_count, s.audit_state, s.creat_date, 
+    s.goods_number, s.goods_price, s.address, s.goods_pic_url, s.production_target, u.phone, u.user_name, u.company_name, u.weChat, u.email, u.address, u.creat_date, u.land_line, 
+     u.fax from h_supply_beg s left join h_user u on s.phone = u.phone where s.supply_beg_id = #{typeId}
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="com.stone.bean.SupplyBegKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from h_supply_beg
+    where phone = #{phone,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and supply_beg_id = #{supplyBegId,jdbcType=INTEGER}
+      and type_name = #{typeName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.stone.bean.SupplyBegKey">
+    delete from h_supply_beg
+    where phone = #{phone,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and supply_beg_id = #{supplyBegId,jdbcType=INTEGER}
+      and type_name = #{typeName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stone.bean.SupplyBegExample">
+    delete from h_supply_beg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stone.bean.SupplyBeg">
+    insert into h_supply_beg (phone, name, supply_beg_id, 
+      type_name, audit_id, access_count, 
+      audit_state, creat_date, goods_number, 
+      goods_price, address, goods_pic_url, 
+      production_target)
+    values (#{phone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{supplyBegId,jdbcType=INTEGER}, 
+      #{typeName,jdbcType=VARCHAR}, #{auditId,jdbcType=VARCHAR}, #{accessCount,jdbcType=INTEGER}, 
+      #{auditState,jdbcType=VARCHAR}, #{creatDate,jdbcType=TIMESTAMP}, #{goodsNumber,jdbcType=VARCHAR}, 
+      #{goodsPrice,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{goodsPicUrl,jdbcType=VARCHAR}, 
+      #{productionTarget,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stone.bean.SupplyBeg">
+    insert into h_supply_beg
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="supplyBegId != null">
+        supply_beg_id,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="auditId != null">
+        audit_id,
+      </if>
+      <if test="accessCount != null">
+        access_count,
+      </if>
+      <if test="auditState != null">
+        audit_state,
+      </if>
+      <if test="creatDate != null">
+        creat_date,
+      </if>
+      <if test="goodsNumber != null">
+        goods_number,
+      </if>
+      <if test="goodsPrice != null">
+        goods_price,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="goodsPicUrl != null">
+        goods_pic_url,
+      </if>
+      <if test="productionTarget != null">
+        production_target,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="supplyBegId != null">
+        #{supplyBegId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="auditId != null">
+        #{auditId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessCount != null">
+        #{accessCount,jdbcType=INTEGER},
+      </if>
+      <if test="auditState != null">
+        #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null">
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsNumber != null">
+        #{goodsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPicUrl != null">
+        #{goodsPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productionTarget != null">
+        #{productionTarget,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stone.bean.SupplyBegExample" resultType="java.lang.Long">
+    select count(*) from h_supply_beg
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update h_supply_beg
+    <set>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.supplyBegId != null">
+        supply_beg_id = #{record.supplyBegId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeName != null">
+        type_name = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditId != null">
+        audit_id = #{record.auditId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessCount != null">
+        access_count = #{record.accessCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.auditState != null">
+        audit_state = #{record.auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatDate != null">
+        creat_date = #{record.creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.goodsNumber != null">
+        goods_number = #{record.goodsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsPrice != null">
+        goods_price = #{record.goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsPicUrl != null">
+        goods_pic_url = #{record.goodsPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productionTarget != null">
+        production_target = #{record.productionTarget,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update h_supply_beg
+    set phone = #{record.phone,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      supply_beg_id = #{record.supplyBegId,jdbcType=INTEGER},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      audit_id = #{record.auditId,jdbcType=VARCHAR},
+      access_count = #{record.accessCount,jdbcType=INTEGER},
+      audit_state = #{record.auditState,jdbcType=VARCHAR},
+      creat_date = #{record.creatDate,jdbcType=TIMESTAMP},
+      goods_number = #{record.goodsNumber,jdbcType=VARCHAR},
+      goods_price = #{record.goodsPrice,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      goods_pic_url = #{record.goodsPicUrl,jdbcType=VARCHAR},
+      production_target = #{record.productionTarget,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update h_supply_beg
+    set phone = #{record.phone,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      supply_beg_id = #{record.supplyBegId,jdbcType=INTEGER},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      audit_id = #{record.auditId,jdbcType=VARCHAR},
+      access_count = #{record.accessCount,jdbcType=INTEGER},
+      audit_state = #{record.auditState,jdbcType=VARCHAR},
+      creat_date = #{record.creatDate,jdbcType=TIMESTAMP},
+      goods_number = #{record.goodsNumber,jdbcType=VARCHAR},
+      goods_price = #{record.goodsPrice,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      goods_pic_url = #{record.goodsPicUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stone.bean.SupplyBeg">
+    update h_supply_beg
+    <set>
+      <if test="auditId != null">
+        audit_id = #{auditId,jdbcType=VARCHAR},
+      </if>
+      <if test="accessCount != null">
+        access_count = #{accessCount,jdbcType=INTEGER},
+      </if>
+      <if test="auditState != null">
+        audit_state = #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null">
+        creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="goodsNumber != null">
+        goods_number = #{goodsNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPrice != null">
+        goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsPicUrl != null">
+        goods_pic_url = #{goodsPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="productionTarget != null">
+        production_target = #{productionTarget,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where phone = #{phone,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and supply_beg_id = #{supplyBegId,jdbcType=INTEGER}
+      and type_name = #{typeName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.stone.bean.SupplyBeg">
+    update h_supply_beg
+    set audit_id = #{auditId,jdbcType=VARCHAR},
+      access_count = #{accessCount,jdbcType=INTEGER},
+      audit_state = #{auditState,jdbcType=VARCHAR},
+      creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      goods_number = #{goodsNumber,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      goods_pic_url = #{goodsPicUrl,jdbcType=VARCHAR},
+      production_target = #{productionTarget,jdbcType=LONGVARCHAR}
+    where phone = #{phone,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and supply_beg_id = #{supplyBegId,jdbcType=INTEGER}
+      and type_name = #{typeName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stone.bean.SupplyBeg">
+    update h_supply_beg
+    set audit_id = #{auditId,jdbcType=VARCHAR},
+      access_count = #{accessCount,jdbcType=INTEGER},
+      audit_state = #{auditState,jdbcType=VARCHAR},
+      creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      goods_number = #{goodsNumber,jdbcType=VARCHAR},
+      goods_price = #{goodsPrice,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      goods_pic_url = #{goodsPicUrl,jdbcType=VARCHAR}
+    where phone = #{phone,jdbcType=VARCHAR}
+      and name = #{name,jdbcType=VARCHAR}
+      and supply_beg_id = #{supplyBegId,jdbcType=INTEGER}
+      and type_name = #{typeName,jdbcType=VARCHAR}
+  </update>
+</mapper>

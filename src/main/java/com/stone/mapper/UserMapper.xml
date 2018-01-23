@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.stone.bean.User">
+    <id column="phone" jdbcType="VARCHAR" property="phone" />
+    <id column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="company_name" jdbcType="VARCHAR" property="companyName" />
+    <result column="weChat" jdbcType="VARCHAR" property="wechat" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="creat_date" jdbcType="TIMESTAMP" property="creatDate" />
+    <result column="land_line" jdbcType="VARCHAR" property="landLine" />
+    <result column="fax" jdbcType="VARCHAR" property="fax" />
+    <result column="card_just" jdbcType="VARCHAR" property="cardJust" />
+    <result column="license" jdbcType="VARCHAR" property="license" />
+    <result column="mine_license" jdbcType="VARCHAR" property="mineLicense" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    phone, user_name, password, company_name, weChat, email, address, creat_date, land_line, 
+    fax, card_just, license, mine_license
+  </sql>
+  <select id="selectByExample" parameterType="com.stone.bean.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from h_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.stone.bean.UserKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from h_user
+    where phone = #{phone,jdbcType=VARCHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.stone.bean.UserKey">
+    delete from h_user
+    where phone = #{phone,jdbcType=VARCHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stone.bean.UserExample">
+    delete from h_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stone.bean.User">
+    insert into h_user (phone, user_name, password, 
+      company_name, weChat, email, 
+      address, creat_date, land_line, 
+      fax, card_just, license, 
+      mine_license)
+    values (#{phone,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{companyName,jdbcType=VARCHAR}, #{wechat,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{creatDate,jdbcType=TIMESTAMP}, #{landLine,jdbcType=VARCHAR}, 
+      #{fax,jdbcType=VARCHAR}, #{cardJust,jdbcType=VARCHAR}, #{license,jdbcType=VARCHAR}, 
+      #{mineLicense,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.stone.bean.User">
+    insert into h_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="companyName != null">
+        company_name,
+      </if>
+      <if test="wechat != null">
+        weChat,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="creatDate != null">
+        creat_date,
+      </if>
+      <if test="landLine != null">
+        land_line,
+      </if>
+      <if test="fax != null">
+        fax,
+      </if>
+      <if test="cardJust != null">
+        card_just,
+      </if>
+      <if test="license != null">
+        license,
+      </if>
+      <if test="mineLicense != null">
+        mine_license,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null">
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="landLine != null">
+        #{landLine,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="cardJust != null">
+        #{cardJust,jdbcType=VARCHAR},
+      </if>
+      <if test="license != null">
+        #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="mineLicense != null">
+        #{mineLicense,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stone.bean.UserExample" resultType="java.lang.Long">
+    select count(*) from h_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update h_user
+    <set>
+      <if test="record.phone != null">
+        phone = #{record.phone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null">
+        password = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.companyName != null">
+        company_name = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechat != null">
+        weChat = #{record.wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatDate != null">
+        creat_date = #{record.creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.landLine != null">
+        land_line = #{record.landLine,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fax != null">
+        fax = #{record.fax,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cardJust != null">
+        card_just = #{record.cardJust,jdbcType=VARCHAR},
+      </if>
+      <if test="record.license != null">
+        license = #{record.license,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mineLicense != null">
+        mine_license = #{record.mineLicense,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update h_user
+    set phone = #{record.phone,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      password = #{record.password,jdbcType=VARCHAR},
+      company_name = #{record.companyName,jdbcType=VARCHAR},
+      weChat = #{record.wechat,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      creat_date = #{record.creatDate,jdbcType=TIMESTAMP},
+      land_line = #{record.landLine,jdbcType=VARCHAR},
+      fax = #{record.fax,jdbcType=VARCHAR},
+      card_just = #{record.cardJust,jdbcType=VARCHAR},
+      license = #{record.license,jdbcType=VARCHAR},
+      mine_license = #{record.mineLicense,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stone.bean.User">
+    update h_user
+    <set>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="companyName != null">
+        company_name = #{companyName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechat != null">
+        weChat = #{wechat,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null">
+        creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="landLine != null">
+        land_line = #{landLine,jdbcType=VARCHAR},
+      </if>
+      <if test="fax != null">
+        fax = #{fax,jdbcType=VARCHAR},
+      </if>
+      <if test="cardJust != null">
+        card_just = #{cardJust,jdbcType=VARCHAR},
+      </if>
+      <if test="license != null">
+        license = #{license,jdbcType=VARCHAR},
+      </if>
+      <if test="mineLicense != null">
+        mine_license = #{mineLicense,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where phone = #{phone,jdbcType=VARCHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stone.bean.User">
+    update h_user
+    set password = #{password,jdbcType=VARCHAR},
+      company_name = #{companyName,jdbcType=VARCHAR},
+      weChat = #{wechat,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      land_line = #{landLine,jdbcType=VARCHAR},
+      fax = #{fax,jdbcType=VARCHAR},
+      card_just = #{cardJust,jdbcType=VARCHAR},
+      license = #{license,jdbcType=VARCHAR},
+      mine_license = #{mineLicense,jdbcType=VARCHAR}
+    where phone = #{phone,jdbcType=VARCHAR}
+      and user_name = #{userName,jdbcType=VARCHAR}
+  </update>
+</mapper>

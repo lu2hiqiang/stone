@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.stone.dao.InformationMapper">
+  <resultMap id="BaseResultMap" type="com.stone.bean.Information">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="titel" jdbcType="VARCHAR" property="titel" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="titel_url" jdbcType="VARCHAR" property="titelUrl" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="edit" jdbcType="VARCHAR" property="edit" />
+    <result column="creat_date" jdbcType="TIMESTAMP" property="creatDate" />
+    <result column="read_cunt" jdbcType="INTEGER" property="readCunt" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, type_id, titel, description, titel_url, author, edit, creat_date, read_cunt
+  </sql>
+  <select id="selectByExample" parameterType="com.stone.bean.InformationExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from h_information
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from h_information
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from h_information
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.stone.bean.InformationExample">
+    delete from h_information
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.stone.bean.Information">
+    insert into h_information (id, type_id, titel, 
+      description, titel_url, author, 
+      edit, creat_date, read_cunt
+      )
+    values (#{id,jdbcType=INTEGER}, #{typeId,jdbcType=INTEGER}, #{titel,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{titelUrl,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{edit,jdbcType=VARCHAR}, #{creatDate,jdbcType=TIMESTAMP}, #{readCunt,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.stone.bean.Information">
+    insert into h_information
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="titel != null">
+        titel,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="titelUrl != null">
+        titel_url,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="edit != null">
+        edit,
+      </if>
+      <if test="creatDate != null">
+        creat_date,
+      </if>
+      <if test="readCunt != null">
+        read_cunt,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="titel != null">
+        #{titel,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="titelUrl != null">
+        #{titelUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="edit != null">
+        #{edit,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null">
+        #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readCunt != null">
+        #{readCunt,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.stone.bean.InformationExample" resultType="java.lang.Long">
+    select count(*) from h_information
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update h_information
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeId != null">
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.titel != null">
+        titel = #{record.titel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.titelUrl != null">
+        titel_url = #{record.titelUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.edit != null">
+        edit = #{record.edit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creatDate != null">
+        creat_date = #{record.creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.readCunt != null">
+        read_cunt = #{record.readCunt,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update h_information
+    set id = #{record.id,jdbcType=INTEGER},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      titel = #{record.titel,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      titel_url = #{record.titelUrl,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      edit = #{record.edit,jdbcType=VARCHAR},
+      creat_date = #{record.creatDate,jdbcType=TIMESTAMP},
+      read_cunt = #{record.readCunt,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.stone.bean.Information">
+    update h_information
+    <set>
+      <if test="typeId != null">
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="titel != null">
+        titel = #{titel,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="titelUrl != null">
+        titel_url = #{titelUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="edit != null">
+        edit = #{edit,jdbcType=VARCHAR},
+      </if>
+      <if test="creatDate != null">
+        creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="readCunt != null">
+        read_cunt = #{readCunt,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.stone.bean.Information">
+    update h_information
+    set type_id = #{typeId,jdbcType=INTEGER},
+      titel = #{titel,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      titel_url = #{titelUrl,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      edit = #{edit,jdbcType=VARCHAR},
+      creat_date = #{creatDate,jdbcType=TIMESTAMP},
+      read_cunt = #{readCunt,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
