@@ -33,7 +33,7 @@ public class GoodsDescriptionController {
 	@ResponseBody
 	public Msg getGoodsDescriptionByName(@RequestParam(value = "goodsName") String goodsName){
 		GoodsDescription goodsDescription = goodsDescriptionService.selectByPrimaryKey(goodsName); 
-		return Msg.success().add("date", goodsDescription);
+		return Msg.success().add("data", goodsDescription);
 	}
 	
 }

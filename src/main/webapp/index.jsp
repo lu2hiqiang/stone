@@ -20,8 +20,6 @@ response.setDateHeader("Expires",0);
 	rel="stylesheet">
 	<script src="${path }/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> --%>
 	<script type="text/javascript">
-	
-	
 	function conmitInfo(){
 		console.log("conmitInfo======");
 		$.ajax({
@@ -35,19 +33,18 @@ response.setDateHeader("Expires",0);
 			}
 		});
 	}
-	
-	
-	
-	
 	</script>
   </head>
   
   <body>
     path =  <%=path%><br>
     basePath = <%=basePath%><br>
-    <a class="btn btn-primary" target="" href="${path }/XhEditorController/xheditor">跳转</a>
-    <br>
-    <input id="bnt_inp" type="button" onclick="conmitInfo()" value="天青石">
+     <br><br>
+    <a class="btn btn-primary" target="" href="<%=path%>/example/static">直接传值跳转</a>
+    <br><br>
+    <a class="btn btn-primary" target="" href="<%=path%>/example/dynamic">动态传值跳转</a>
+    <br><br>
+    <input id="bnt_inp" type="button" onclick="conmitInfo()" value="孔雀石">
     <br><br><br><br>
     <div id="content" >
     </div>
