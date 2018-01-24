@@ -2,7 +2,9 @@ package com.stone.dao;
 
 import com.stone.bean.Information;
 import com.stone.bean.InformationExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface InformationMapper {
@@ -17,6 +19,8 @@ public interface InformationMapper {
     int insertSelective(Information record);
 
     List<Information> selectByExample(InformationExample example);
+    
+    List<Information> selectInformationListByType(@Param("typeId")Integer typeId);
 
     Information selectByPrimaryKey(Integer id);
 
@@ -27,4 +31,6 @@ public interface InformationMapper {
     int updateByPrimaryKeySelective(Information record);
 
     int updateByPrimaryKey(Information record);
+
+	Information selectByTitel(@Param("titel")String titel);
 }

@@ -43,4 +43,6 @@ public class SupplyBegController {
 		return Msg.success().add("data", pageInfo);
 	}
 	
+	
+	
 }

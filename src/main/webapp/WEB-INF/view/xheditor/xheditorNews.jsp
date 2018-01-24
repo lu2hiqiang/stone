@@ -61,14 +61,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
     <form action="<%=path%>/XhEditorController/xhEditorNewsSubmit" method="post">
         <div>
-           标题：<input type="text" name="name" />
-           标题图片路径：<input type="text" name="titelUrl" />
-           作者：<input type="text" name="author" />
+           标题：<input type="text" name="name" style="width: 20%"/>
+           标题图片路径：<input type="text" name="titelUrl" style="width: 18%"/>
+            日期：<input type="text" name="date" />
+           来源：<input type="text" name="author" />
            编辑：<input type="text" name="edit" />
-           日期：<input type="text" name="date" />
-           <br>
-           小标题：<input type="text" name="description" />
-           
+           <br><br>
+           小标题：<input type="text" name="description" style="width: 80%;margin-bottom: 10px"/>
             <textarea id="xh_editor" name="contents" rows="25"
                 style="width: 100%; border: 1px"></textarea>
         </div>

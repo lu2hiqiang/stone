@@ -17,9 +17,13 @@ public class InformationService {
 	public int insertSelective(Information information) {
 		return mapper.insertSelective(information);
 	}
-	
-//	public Information selectByTitel(String titel) {
-//		return mapper.selectByTitel(titel);
-//	}
+
+	public Information selectByTitel(String titel) {
+		return mapper.selectByTitel(titel);
+	}
+
+	public List<Information> selectInformationListByType(Integer typeId) {
+		return mapper.selectInformationListByType(typeId);
+	}
 	
 }

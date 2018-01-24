@@ -8,18 +8,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.stone.bean.GoodsDescription;
 import com.stone.bean.Information;
-import com.stone.bean.InformationExample;
-import com.stone.bean.InformationExample.Criteria;
+import com.stone.bean.InformationDescription;
 import com.stone.service.GoodsDescriptionService;
 import com.stone.service.InformationDescriptionService;
 import com.stone.service.InformationService;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 @Controller
 @RequestMapping(value = "/XhEditorController")
@@ -85,15 +84,21 @@ public class XhEditorController {
 			System.out.println("author-------------->" + author);
 			System.out.println("edit-------------->" + edit);
 			System.out.println("description-------------->" + description);
-			Information information = new Information(null, 1, name, description, titelUrl, author, edit, new Date(), 100);
+			System.out.println("contents-------------->" + contents);
+			Information information = new Information(null, 1, name, description, titelUrl, author, edit, convertDate(date), 100);
 			int result = informationService.insertSelective(information);
 			System.out.println("informationService insertSelective result is " + result);
 			
 //			InformationExample example = new InformationExample(); 
 //			Criteria createCriteria = example.createCriteria();
 //			createCriteria.andTitelEqualTo(information.getTitel());
-//			Information information2 = informationService.selectByTitel(information.getTitel());
-//			System.out.println("informationService selectByTitel result is " + information2.getId());
+			Information information2 = informationService.selectByTitel(information.getTitel());
+			System.out.println("informationService selectByTitel result is " + information2.getId());
+			
+			
+			int result1 = informationDescriptionService.insertSelective(new InformationDescription(information2.getId(), contents));
+			System.out.println("informationDescriptionService insertSelective result is " + result1);
+			
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -118,4 +123,14 @@ public class XhEditorController {
 		}
 		return "";
 	}
+	private Date convertDate(String str) {
+		String[] split = str.split(" ");
+		String[] date = split[0].split("-");
+		String[] time = split[1].split(":");
+		return new Date(Integer.parseInt(date[0]), Integer.parseInt(date[1]), Integer.parseInt(date[2]), Integer.parseInt(time[0]), Integer.parseInt(time[1]));
+	}
+	
+	/*public static void main(String[] args) {
+		System.out.println(convertDate("2018-01-23 17:02").toString());
+	}*/
 }

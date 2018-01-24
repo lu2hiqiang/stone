@@ -11,8 +11,12 @@ public class InformationDescriptionService {
 	@Autowired
 	InformationDescriptionMapper mapper;
 
-	public int insertSelective(InformationDescription description) {
-		return mapper.insertSelective(description);
+	public int insertSelective(InformationDescription informationDescription) {
+		return mapper.insertSelective(informationDescription);
 	}
 	
+	
+	public InformationDescription selectByPrimaryKey(Integer id) {
+		return mapper.selectByPrimaryKey(id);
+	}
 }

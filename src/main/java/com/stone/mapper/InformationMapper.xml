@@ -3,7 +3,6 @@
 <mapper namespace="com.stone.dao.InformationMapper">
   <resultMap id="BaseResultMap" type="com.stone.bean.Information">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="type_id" jdbcType="INTEGER" property="typeId" />
     <result column="titel" jdbcType="VARCHAR" property="titel" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="titel_url" jdbcType="VARCHAR" property="titelUrl" />
@@ -92,6 +91,16 @@
     <include refid="Base_Column_List" />
     from h_information
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectInformationListByType" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from h_information
+    where type_id = #{typeId} 
+    order by creat_date desc
+  </select>
+  <select id="selectByTitel" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from h_information
+    where titel = #{titel}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from h_information
