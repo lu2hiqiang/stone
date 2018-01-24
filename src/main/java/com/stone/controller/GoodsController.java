@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.stone.bean.Goods;
+import com.stone.bean.GoodsType;
 import com.stone.bean.Msg;
 import com.stone.service.GoodsService;
+import com.stone.service.GoodsTypeService;
 
 /**
 * @Description: 矿材操作请求
@@ -25,6 +28,8 @@ public class GoodsController {
 	
 	@Autowired
 	GoodsService goodsService;
+	@Autowired
+	GoodsTypeService goodsTypeService;
 
 	/*@RequestMapping(value = "/list")
 	@ResponseBody
@@ -43,6 +48,17 @@ public class GoodsController {
 	@ResponseBody
 	public Msg getGoodsByGoodsType(@RequestParam(value = "type",defaultValue = "101") String goodsType){
 		List<Goods> list = goodsService.selectByGoodsType(goodsType);
+		if(list.size() > 0)
+			return Msg.success().add("data", list);
+		else {
+			return Msg.fail();
+		}
+	}
+	
+	@RequestMapping(value="/goodsTypeList")
+	@ResponseBody
+	public Msg getGoodsTypeService(){
+		List<GoodsType> list = goodsTypeService.getAll();
 		if(list.size() > 0)
 			return Msg.success().add("data", list);
 		else {
