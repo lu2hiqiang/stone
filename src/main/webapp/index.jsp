@@ -23,8 +23,8 @@ response.setDateHeader("Expires",0);
 			url : '<%=path%>/GoodsDescription/getDescription?goodsName=孔雀石',
 			type : 'get',
 			success : function(msg) {
-				console.log("msg =111== " + msg.data.date.goodsDescription);
-				$('#content').html(msg.data.date.goodsDescription);
+				console.log("msg =111== " + msg.data.data.goodsDescription);
+				$('#content').html(msg.data.data.goodsDescription);
 			},
 			error : function() {
 			}
