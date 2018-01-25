@@ -16,9 +16,6 @@ response.setDateHeader("Expires",0);
 	<script type="text/javascript"
     src="<%=path%>/xheditor/jquery/jquery-1.4.4.min.js"></script>
 	
-	<%-- <link href="${path }/static/bootstrap-3.3.7-dist/css/bootstrap.min.css"
-	rel="stylesheet">
-	<script src="${path }/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script> --%>
 	<script type="text/javascript">
 	function conmitInfo(){
 		console.log("conmitInfo======");
