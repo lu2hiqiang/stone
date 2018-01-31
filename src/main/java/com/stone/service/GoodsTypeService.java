@@ -21,4 +21,10 @@ public class GoodsTypeService {
 		return mapper.selectByExample(null);
 	}
 	
+	public List<GoodsType> getAllPuls() {
+		return mapper.selectAllPuls(); 
+	}
+	
+	
+	
 }

@@ -27,4 +27,6 @@ public interface GoodsTypeMapper {
     int updateByPrimaryKeySelective(GoodsType record);
 
     int updateByPrimaryKey(GoodsType record);
+
+	List<GoodsType> selectAllPuls();
 }
